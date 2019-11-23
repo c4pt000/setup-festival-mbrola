@@ -1,4 +1,5 @@
 # setup-festival-mbrola
+http://superkuh.com/festival/
 
 A Bash script for Linux and Mac OS X to download/compile/install Festival, MBROLA, and voice files.
 
