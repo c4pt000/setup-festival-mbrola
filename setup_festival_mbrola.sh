@@ -52,7 +52,7 @@ usage() {
     echo "  festival                download+compile Festival, install basic English voices"
     echo "  festival-mbrola-voices  download+install Festival wrappers for MBROLA"
     echo "  festival-voices         download+install all known Festival voices (WARNING: large download)"
-    echo "  italian                 download+install Italian voices for Festival, including wrappers for MBROLA"
+
     echo "  mbrola                  download MBROLA binary"
     echo "  mbrola-voices           download all known MBROLA voices (WARNING: large download)"
     echo ""
@@ -177,10 +177,8 @@ download_uncompress_mbrola_voice() {
   get_file "$R" "$REPO" "$URL"
 
   DEST=""
-  if [ "$BASE" == "en1-980910.zip" ]
-  then
-    DEST="english/en1_mbrola/"
-  elif [ "$BASE" == "us1-980512.zip" ]
+  
+  if [ "$BASE" == "us1-980512.zip" ]
   then
     DEST="english/us1_mbrola/"
   elif [ "$BASE" == "us2-980812.zip" ]
@@ -189,13 +187,8 @@ download_uncompress_mbrola_voice() {
   elif [ "$BASE" == "us3-990208.zip" ]
   then
     DEST="english/us3_mbrola/"
-  elif [ "$BASE" == "it3-010304.zip" ]
-  then
-    DEST="italian/italian/"
-  elif [ "$BASE" == "it4-010926.zip" ]
-  then
-    DEST="italian/italian/"
-  fi
+ 
+ fi
   unzip_file "$R" "$REPO" "$BUILD" "$BASE" "$DEST"
 }
 
@@ -350,10 +343,7 @@ install_italian() {
   download_uncompress_festival_package "$R" "$REPO" "$BUILD" "http://www2.pd.istc.cnr.it/FESTIVAL/ifd/festvox_pc_mbrola.tar.gz"
   download_uncompress_festival_package "$R" "$REPO" "$BUILD" "http://www2.pd.istc.cnr.it/FESTIVAL/ifd/festvox_lp_mbrola.tar.gz"
 
-  REPO="download_mbrola_voices"
-  download_uncompress_mbrola_voice     "$R" "$REPO" "$BUILD" "http://tcts.fpms.ac.be/synthesis/mbrola/dba/it3/it3-010304.zip"
-  download_uncompress_mbrola_voice     "$R" "$REPO" "$BUILD" "http://tcts.fpms.ac.be/synthesis/mbrola/dba/it4/it4-010926.zip"
-  echo "[INFO] Installing additional Italian voices... done"
+  
 }
 
 install_mbrola() {
@@ -424,16 +414,15 @@ install_festival_mbrola_voices() {
 
   echo "[INFO] Installing festival-mbrola voices..."
   REPO="download_festival_voices"
-  download_uncompress_festival_package "$R" "$REPO" "$BUILD" "http://festvox.org/packed/festival/1.95/festvox_en1.tar.gz"
   download_uncompress_festival_package "$R" "$REPO" "$BUILD" "http://festvox.org/packed/festival/1.95/festvox_us1.tar.gz"
   download_uncompress_festival_package "$R" "$REPO" "$BUILD" "http://festvox.org/packed/festival/1.95/festvox_us2.tar.gz"
   download_uncompress_festival_package "$R" "$REPO" "$BUILD" "http://festvox.org/packed/festival/1.95/festvox_us3.tar.gz"
 
   REPO="download_mbrola_voices"
-  download_uncompress_mbrola_voice     "$R" "$REPO" "$BUILD" "http://tcts.fpms.ac.be/synthesis/mbrola/dba/en1/en1-980910.zip"
-  download_uncompress_mbrola_voice     "$R" "$REPO" "$BUILD" "http://tcts.fpms.ac.be/synthesis/mbrola/dba/us1/us1-980512.zip"
-  download_uncompress_mbrola_voice     "$R" "$REPO" "$BUILD" "http://tcts.fpms.ac.be/synthesis/mbrola/dba/us2/us2-980812.zip"
-  download_uncompress_mbrola_voice     "$R" "$REPO" "$BUILD" "http://tcts.fpms.ac.be/synthesis/mbrola/dba/us3/us3-990208.zip"
+ 
+  download_uncompress_mbrola_voice     "$R" "$REPO" "$BUILD" "http://web.mit.edu/kolya/sipb/afs/root.afs/sipb.mit.edu/project/speech-tools/src/mbrola/us1-980512.zip"
+  download_uncompress_mbrola_voice     "$R" "$REPO" "$BUILD" "http://web.mit.edu/kolya/sipb/afs/root.afs/sipb.mit.edu/project/speech-tools/src/mbrola/us2-980812.zip"
+  download_uncompress_mbrola_voice     "$R" "$REPO" "$BUILD" "http://web.mit.edu/kolya/sipb/afs/root.afs/sipb.mit.edu/project/speech-tools/src/mbrola/us3-990208.zip"
 
   UNAME=`uname`
   if [ "$UNAME" == "Darwin" ]
@@ -457,82 +446,7 @@ get_mbrola_voices() {
 
   echo "[INFO] Downloading additional mbrola voices..."
   declare -a URLS=(
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/af1/af1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/ar1/ar1-981103.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/ar2/ar2-001015.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/br1/br1-971105.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/br2/br2-000119.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/br3/br3-000119.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/br4/br4.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/bz1/bz1-980116.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/ca1/ca1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/ca2/ca2.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/cn1/cn1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/cr1/cr1-981028.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/cz1/cz1-991020.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/cz2/cz2-001009.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/de1/de1-980227.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/de2/de2-990106.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/de3/de3-000307.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/de4/de4.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/de5/de5.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/de6/de6.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/de7/de7.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/de8/de8.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/ee1/ee1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/en1/en1-980910.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/es1/es1-980610.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/es2/es2-989825.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/es3/es3.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/es4/es4.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/fr1/fr1-990204.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/fr2/fr2-980806.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/fr3/fr3-990324.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/fr4/fr4-990521.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/fr5/fr5-991020.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/fr6/fr6-010330.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/fr7/fr7-010330.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/gr1/gr1-990610.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/gr2/gr2-010521.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/hb1/hb1-000308.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/hb2/hb2.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/hn1/hn1-990923.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/hu1/hu1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/ic1/ic1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/id1/id1-001010.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/in1/in1-010206.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/in2/in2-010202.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/ir1/ir1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/it1/it1-010213.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/it2/it2-010406.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/it3/it3-010304.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/it4/it4-010926.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/jp1/jp1-000314.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/jp2/jp2-270202.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/jp3/jp3.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/la1/la1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/lt1/lt1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/lt2/lt2.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/ma1/ma1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/mx1/mx1-990208.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/mx2/mx2.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/nl1/nl1-980609.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/nl2/nl2-990507.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/nl3/nl3-001013.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/nz1/nz1-000911.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/pl1/pl1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/pt1/pt1-000509.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/ro1/ro1-980317.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/sw1/sw1-980623.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/sw2/sw2-140102.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/tl1/tl1.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/tr1/tr1-010209.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/tr2/tr2-010212.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/us1/us1-980512.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/us2/us2-980812.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/us3/us3-990208.zip"
-    "http://www.tcts.fpms.ac.be/synthesis/mbrola/dba/vz1/vz1.zip"
-  )
+    )
   for URL in "${URLS[@]}"
   do
     get_file "$R" "$REPO" "$URL"
@@ -578,9 +492,7 @@ then
 elif [ "$ACTION" == "mbrola-voices" ]
 then
   get_mbrola_voices "$DESTINATION"
-elif [ "$ACTION" == "italian" ]
-then
-  install_italian "$DESTINATION"
+
 else
   usage
   exit 2
